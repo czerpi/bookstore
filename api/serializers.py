@@ -19,7 +19,7 @@ class TagsRequestSerializer(serializers.Serializer):
         fields = read_only_fields = "tags"
 
 
-class BookSerializer(serializers.HyperlinkedModelSerializer):
+class BookSerializer(serializers.ModelSerializer):
     author = serializers.CharField(max_length=100, source="author.name")
     tags = serializers.SerializerMethodField()
 
