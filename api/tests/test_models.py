@@ -6,7 +6,7 @@ from api.models import Book, Author, Tag
 
 @pytest.mark.django_db
 def test_tag_model_create():
-    name = 'tag'
+    name = "tag"
     Tag.objects.create(name=name)
     tags = Tag.objects.all()
     assert tags.exists() is True
@@ -17,7 +17,7 @@ def test_tag_model_create():
 
 @pytest.mark.django_db
 def test_tag_model_create_check_unique_name():
-    name = 'tag'
+    name = "tag"
     Tag.objects.create(name=name)
     with pytest.raises(IntegrityError):
         Tag.objects.create(name=name)
@@ -25,7 +25,7 @@ def test_tag_model_create_check_unique_name():
 
 @pytest.mark.django_db
 def test_author_model_create():
-    name = 'Author'
+    name = "Author"
     Author.objects.create(name=name)
     authors = Author.objects.all()
     assert authors.exists() is True
@@ -36,7 +36,7 @@ def test_author_model_create():
 
 @pytest.mark.django_db
 def test_author_model_create_check_unique_name():
-    name = 'Author'
+    name = "Author"
     Author.objects.create(name=name)
     with pytest.raises(IntegrityError):
         Author.objects.create(name=name)
@@ -44,7 +44,7 @@ def test_author_model_create_check_unique_name():
 
 @pytest.mark.django_db
 def test_book_model_create(author):
-    name = 'Book'
+    name = "Book"
     Book.objects.create(
         name=name,
         author=author,
@@ -60,7 +60,7 @@ def test_book_model_create(author):
 
 @pytest.mark.django_db
 def test_book_model_create_check_unique_name(author):
-    name = 'Book'
+    name = "Book"
     Book.objects.create(
         name=name,
         author=author,
@@ -74,11 +74,10 @@ def test_book_model_create_check_unique_name(author):
 
 @pytest.mark.django_db
 def test_book_model_create_with_tags(author, tag_1, tag_2):
-    name = 'Book'
+    name = "Book"
     book = Book.objects.create(
         name=name,
         author=author,
-
     )
     book.tags.add(tag_1, tag_2)
     book.save()
@@ -90,6 +89,6 @@ def test_book_model_create_with_tags(author, tag_1, tag_2):
 
 @pytest.mark.django_db
 def test_book_model_create_without_author():
-    name = 'Book'
+    name = "Book"
     with pytest.raises(IntegrityError):
         Book.objects.create(name=name)

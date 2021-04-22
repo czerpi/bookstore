@@ -25,15 +25,11 @@ class BooksViewSet(ListAPIView):
         return qs
 
     def filter_queryset(self, queryset):
-        request_serializer = TagsRequestSerializer(
-            data=self.request.query_params
-        )
+        request_serializer = TagsRequestSerializer(data=self.request.query_params)
         if not request_serializer.is_valid():
-            raise serializers.ValidationError(
-                {"errors": request_serializer.errors}
-            )
+            raise serializers.ValidationError({"errors": request_serializer.errors})
 
         tags = request_serializer.data["tags"]
         tags = [x.strip() for x in tags.split(",")]
         queryset = queryset.filter(tags__name__in=tags)
-        return queryset
+        return queryset.distinct().order_by("name")
